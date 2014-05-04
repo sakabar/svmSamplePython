@@ -22,21 +22,24 @@ def libsvmFormat(features, line):
     words = lst[1:]
     ans = [label]
 
-    f = {}
+    f = []
+    for i in xrange(0, len(features)):
+        f.append(0)
+
     for w in words:
         if w in features:
             ind = features.index(w)
         else:
             ind = unknown
 
-        if ind in f:
-            f[ind] += 1
-        else:
-            f[ind] = 1
+        f[ind] += 1
 
-    for ind, cnt in f.items():
-        s = "".join([" ", str(ind+1), ":", str(cnt)])
-        ans.append(s)
+    for i in xrange(0, len(features)):
+        if f[i] == 0:
+            pass
+        else:
+            s = "".join([" ", str(i+1), ":", str(f[i])])
+            ans.append(s)
         
     return "".join(ans)
 
