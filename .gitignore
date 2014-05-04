@@ -1,2 +1,4 @@
 *.py[cod]
-libsvmFormat.txt
+train_libsvmFormat.txt
+test_libsvmFormat.txt
+result.txt
