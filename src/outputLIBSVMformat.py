@@ -1,8 +1,7 @@
 #coding: utf-8
 import sys
-#import svmutil
 
-def load():
+def makeFeatureList():
     #素性番号1は"未定義語"
     features=["未定義"]
 
@@ -17,6 +16,7 @@ def load():
 
 # featureリストと一行のラベル, 単語列を引数として、文字列を返す
 def libsvmFormat(features, line):
+    unknown = 0
     lst = line.split(" ")
     label = lst[0]
     words = lst[1:]
@@ -27,7 +27,11 @@ def libsvmFormat(features, line):
         f.append(0)
 
     for w in words:
-        ind = features.index(w)
+        if w in features:
+            ind = features.index(w)
+        else:
+            ind = unknown
+
         f[ind] += 1
     
     for i in xrange(0, len(features)):
@@ -37,9 +41,9 @@ def libsvmFormat(features, line):
     return "".join(ans)
 
 if __name__ == '__main__':
-    features=load()
+    features=makeFeatureList()
         
-    for line in open('./data/train_kakaku.txt', 'r'):
+    for line in sys.stdin:
         print libsvmFormat(features, line)
 
         
