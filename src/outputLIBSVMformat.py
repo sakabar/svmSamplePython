@@ -1,11 +1,11 @@
 #coding: utf-8
 import sys
 
-def makeFeatureList():
+def makeFeatureList(train_file = './data/train_kakaku.txt'):
     #素性番号1(配列のインデックス0番)は"未定義語"
     features=["未定義"]
 
-    for line in open('./data/train_kakaku.txt', 'r'):
+    for line in open(train_file, 'r'):
         for w in line.rstrip("\n").split(" ")[1:]:
             if w in features:
                 pass
