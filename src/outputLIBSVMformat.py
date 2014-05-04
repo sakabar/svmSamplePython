@@ -6,12 +6,12 @@ def makeFeatureList():
     features=["未定義"]
 
     for line in open('./data/train_kakaku.txt', 'r'):
-        for w in line.split(" ")[1:]:
+        for w in line.rstrip("\n").split(" ")[1:]:
             if w in features:
                 pass
             else:
                 features.append(w)
-        
+
     return features
 
 # featureリストと一行のラベル, 単語列を引数として、文字列を返す
@@ -42,6 +42,7 @@ def libsvmFormat(features, line):
 
 if __name__ == '__main__':
     features=makeFeatureList()
-        
+
     for line in sys.stdin:
-        print libsvmFormat(features, line)
+        l = line.rstrip("\n")
+        print libsvmFormat(features, l)
