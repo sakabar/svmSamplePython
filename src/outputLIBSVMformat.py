@@ -2,7 +2,7 @@
 import sys
 
 def makeFeatureList():
-    #素性番号1は"未定義語"
+    #素性番号1(配列のインデックス0番)は"未定義語"
     features=["未定義"]
 
     for line in open('./data/train_kakaku.txt', 'r'):
@@ -22,22 +22,22 @@ def libsvmFormat(features, line):
     words = lst[1:]
     ans = [label]
 
-    f = []
-    for i in xrange(0, len(features)):
-        f.append(0)
-
+    f = {}
     for w in words:
         if w in features:
             ind = features.index(w)
         else:
             ind = unknown
 
-        f[ind] += 1
-    
-    for i in xrange(0, len(features)):
-        s = "".join([" ", str(i+1), ":", str(f[i])])
-        ans.append(s)
+        if ind in f:
+            f[ind] += 1
+        else:
+            f[ind] = 1
 
+    for ind, cnt in f.items():
+        s = "".join([" ", str(ind+1), ":", str(cnt)])
+        ans.append(s)
+        
     return "".join(ans)
 
 if __name__ == '__main__':
@@ -45,5 +45,3 @@ if __name__ == '__main__':
         
     for line in sys.stdin:
         print libsvmFormat(features, line)
-
-        
