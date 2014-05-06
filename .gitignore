@@ -1,5 +1,8 @@
 *.py[cod]
 train_libsvmFormat.txt
 test_libsvmFormat.txt
-result.txt
 featureList.txt
+
+result.txt
+result_liblinear.txt
+result_libsvm.txt
